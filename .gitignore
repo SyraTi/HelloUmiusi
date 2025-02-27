@@ -1,0 +1,7 @@
+.idea
+*.iml
+out
+target
+release_info
+src/main/public/jcef-bundle_*
+

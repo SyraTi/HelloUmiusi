@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>💖 Hello Umiusi! -- by SyraTi</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xterm/xterm@5.5.0/css/xterm.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@xterm/xterm@5.5.0/lib/xterm.js"></script>
+    <style>
+        .author{
+            font-size: .5em;
+        }
+    </style>
+    <script>
+
+    </script>
+</head>
+<body>
+<h1>💖 Hello Umiusi! <span class="author">-- by SyraTi</span></h1>
+<p>Welcome to your UmiusiCraft Installer.</p>
+<button id="install-btn">获取最新版本</button>
+<p id="terminal"></p>
+
+<script>
+    const term = new Terminal();
+    term.open(document.getElementById('terminal'));
+    window.umiusiBridgeMessageHandler = {
+        lockGit: () => {
+            document.getElementById('install-btn').disabled = true
+        },
+        unlockGit: () => {
+            document.getElementById('install-btn').disabled = false
+        },
+        flushLog: () => {
+        },
+        log: (message) =>{
+            term.write(message + '\r\n')
+        },
+    }
+    document.getElementById('install-btn').addEventListener('click',async ()=>{
+        window.umiusiBridgeMessageHandler.flushLog()
+        window.umiusiBridge({
+            request: "GET_LATEST"
+        })
+    })
+</script>
+</body>
+</html>
