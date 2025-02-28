@@ -23,4 +23,4 @@ mvn clean package
 mvn clean package -P mac-aarch64
 mvn clean package -P win-amd64
 ```
-构建完成后，执行startup脚本即可运行，将target目录下的 hellow-umiusi.jar 、 .hello-umiusi、 startup.windows.bat 打包即可发布
+构建完成后，执行startup脚本即可运行，将target目录下的 hellow-umiusi.jar 、 .hello-umiusi、 startup.windows.bat、README.md 打包即可发布
