@@ -9,7 +9,11 @@
     <version>1.0.0</version>
     <profiles>
         <profile>
-            <id>mac-aarch64</id>
+            <id>darwin-aarch64</id>
+
+            <properties>
+                <release.name>hello-umiusi-v${project.version}-darwin-aarch64</release.name>
+            </properties>
             <activation>
                 <os>
                     <family>mac</family>
@@ -17,6 +21,13 @@
                 </os>
             </activation>
 
+            <dependencies>
+                <dependency>
+                    <groupId>me.friwi</groupId>
+                    <artifactId>jcef-natives-macosx-arm64</artifactId>
+                    <version>jcef-1770317+cef-132.3.1+g144febe+chromium-132.0.6834.83</version>
+                </dependency>
+            </dependencies>
             <build>
                 <plugins>
                     <plugin>
@@ -24,26 +35,6 @@
                         <version>3.3.1</version>
                         <executions>
 
-                            <execution>
-                                <id>copy-jcef</id>
-                                <!-- here the phase you need -->
-                                <phase>validate</phase>
-                                <goals>
-                                    <goal>copy-resources</goal>
-                                </goals>
-                                <configuration>
-                                    <outputDirectory>${project.build.directory}/.hello-umiusi</outputDirectory>
-                                    <resources>
-                                        <resource>
-                                            <directory>src/main/public</directory>
-                                            <includes>
-                                                <include>jcef-bundle_aarch64/**/*</include>
-                                            </includes>
-                                            <filtering>false</filtering>
-                                        </resource>
-                                    </resources>
-                                </configuration>
-                            </execution>
                             <execution>
                                 <id>copy-scripts</id>
                                 <!-- here the phase you need -->
@@ -78,33 +69,22 @@
                 </os>
             </activation>
 
+            <properties>
+                <release.name>hello-umiusi-v${project.version}-win-amd64</release.name>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>me.friwi</groupId>
+                    <artifactId>jcef-natives-windows-amd64</artifactId>
+                    <version>jcef-1770317+cef-132.3.1+g144febe+chromium-132.0.6834.83</version>
+                </dependency>
+            </dependencies>
             <build>
                 <plugins>
                     <plugin>
                         <artifactId>maven-resources-plugin</artifactId>
                         <version>3.3.1</version>
                         <executions>
-
-                            <execution>
-                                <id>copy-jcef</id>
-                                <!-- here the phase you need -->
-                                <phase>validate</phase>
-                                <goals>
-                                    <goal>copy-resources</goal>
-                                </goals>
-                                <configuration>
-                                    <outputDirectory>${project.build.directory}/.hello-umiusi</outputDirectory>
-                                    <resources>
-                                        <resource>
-                                            <directory>src/main/public</directory>
-                                            <includes>
-                                                <include>jcef-bundle_amd64/**/*</include>
-                                            </includes>
-                                            <filtering>false</filtering>
-                                        </resource>
-                                    </resources>
-                                </configuration>
-                            </execution>
                             <execution>
                                 <id>copy-scripts</id>
                                 <!-- here the phase you need -->
@@ -133,6 +113,7 @@
     </profiles>
 
     <properties>
+        <release.name>hello-umiusi</release.name>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -171,24 +152,39 @@
             </plugin>
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <finalName>hello-umiusi</finalName>
-                    <archive>
-                        <manifest>
-                            <mainClass>icu.syra_ti.hello_umiusi.MainFrame</mainClass>
-                        </manifest>
-                    </archive>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                    <appendAssemblyId>false</appendAssemblyId>
-                </configuration>
+                <version>3.7.1</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
                         <goals>
                             <goal>single</goal>
                         </goals>
+                        <configuration>
+                            <finalName>hello-umiusi</finalName>
+                            <archive>
+                                <manifest>
+                                    <mainClass>icu.syra_ti.hello_umiusi.MainFrame</mainClass>
+                                </manifest>
+                            </archive>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                            <appendAssemblyId>false</appendAssemblyId>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>make-archive</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <finalName>${release.name}</finalName>
+                            <descriptors>
+                                <descriptor>src/assembly/target-archive.xml</descriptor>
+                            </descriptors>
+                            <appendAssemblyId>false</appendAssemblyId>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
