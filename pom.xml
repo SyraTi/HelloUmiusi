@@ -6,7 +6,7 @@
 
     <groupId>icu.syra_ti</groupId>
     <artifactId>hello_umiusi</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <profiles>
         <profile>
             <id>darwin-aarch64</id>
