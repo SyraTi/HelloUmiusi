@@ -179,6 +179,7 @@
                             <goal>single</goal>
                         </goals>
                         <configuration>
+                            <outputDirectory>out</outputDirectory> <!-- 自定义输出目录 -->
                             <finalName>${release.name}</finalName>
                             <descriptors>
                                 <descriptor>src/assembly/target-archive.xml</descriptor>

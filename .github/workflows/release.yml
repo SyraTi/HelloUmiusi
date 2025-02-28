@@ -23,15 +23,14 @@ jobs:
           distribution: 'temurin'
 
       - name: Build darwin
-        run: mvn package -P darwin-aarch64
+        run: mvn clean package -P darwin-aarch64
 
       - name: Build win
-        run: mvn package -P win-amd64
+        run: mvn clean package -P win-amd64
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: |
-            target/hello-umiusi-*.zip
+          files: out/hello-umiusi-*.zip
 
