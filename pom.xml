@@ -210,6 +210,7 @@
                                     <directory>src/main/public</directory>
                                     <includes>
                                         <include>web/**/*</include>
+                                        <include>config.json</include>
                                     </includes>
                                     <filtering>false</filtering>
                                 </resource>
