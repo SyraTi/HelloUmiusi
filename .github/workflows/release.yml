@@ -5,6 +5,9 @@ on:
     tags:
       - 'v*.*.*'  # 监听所有版本标签
 
+permissions:
+  contents: write
+
 jobs:
   release:
 
